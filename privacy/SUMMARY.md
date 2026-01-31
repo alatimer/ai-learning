@@ -8,10 +8,12 @@
 
 | File | Description |
 |------|-------------|
-| `research_summaries.md` | 43 papers summarized with contributions, methods, limitations, future work |
-| `thematic_synthesis.md` | 8 cross-cutting themes with maturity assessments |
+| `research_summaries.md` | 50+ papers summarized with contributions, methods, limitations, future work |
+| `thematic_synthesis.md` | 9 cross-cutting themes with maturity assessments |
 | `review_outline.md` | Full 10-section review paper outline |
-| `bibliography.md` | 75 organized references with URLs |
+| `bibliography.md` | 88 organized references with URLs |
+| `existing_surveys_review.md` | Review of 15 existing surveys (2024-2025) |
+| `REPORT.md` | Full synthesized report |
 | `RESEARCH_PLAN.md` | Research plan and completion status |
 
 ---
@@ -51,6 +53,14 @@
 - OpenAI fined €15M in Italy (2024) for GDPR violations
 - Machine unlearning positioned as "best effort" approximation
 
+### 7. DP Has Safety Benefits Beyond Privacy
+- **Prevents harmful memorization**: VaultGemma (Google, 2025) shows no detectable memorization at ε≤2.0
+- **Defends against poisoning**: DP limits influence of any single sample, including poison samples
+- **Improves robustness**: DP noise acts as regularization, reducing overfitting
+- **Large ε still works**: Even ε≥7 defends against practical membership inference attacks
+- **Fairness concern**: DP can amplify bias against underrepresented groups ("poor get poorer")
+- **Mitigation**: Counterfactual Data Augmentation (CDA) can reduce DP-induced bias
+
 ---
 
 ## Maturity Assessment
@@ -64,6 +74,8 @@
 | Privacy auditing | Low-Medium | Low |
 | Secure inference | Medium | Low |
 | Regulatory compliance | Emerging | Low |
+| DP for safety/anti-memorization | Medium | Low |
+| DP-fairness co-optimization | Low | Very Low |
 
 ---
 
@@ -74,6 +86,8 @@
 3. **Semantic Privacy**: Formalizing and defending against inference attacks
 4. **Verifiable Unlearning**: Certification that data is truly forgotten
 5. **Agent Privacy**: Tool-enabled exfiltration in LLM agents
+6. **DP-Fairness Balance**: Achieving privacy without amplifying bias
+7. **DP for Targeted Safety**: Can DP prevent harmful capabilities while preserving useful ones?
 
 ---
 
@@ -96,4 +110,4 @@
 
 ---
 
-*Research completed: 2025-01-30*
+*Research completed: 2025-01-31*

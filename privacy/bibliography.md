@@ -206,16 +206,38 @@
 
 ---
 
-## GitHub Repositories
+## DP Safety Benefits Beyond Privacy
 
-72. SAFR AI Lab. "Survey-LLM: A Survey of Privacy Problems in Large Language Models." https://github.com/safr-ai-lab/survey-llm
+76. Google Research. (2025). "VaultGemma: The World's Most Capable Differentially Private LLM." https://research.google/blog/vaultgemma-the-worlds-most-capable-differentially-private-llm/
 
-73. Chris Liu. "Awesome-LLM-Unlearning: A Resource Repository for Machine Unlearning in LLMs." https://github.com/chrisliu298/awesome-llm-unlearning
+77. "Does Differential Privacy Prevent Backdoor Attacks in Practice?" (2023). *arXiv:2311.06227*. https://arxiv.org/abs/2311.06227
 
-74. Microsoft. "Analysing PII Leakage." https://github.com/microsoft/analysing_pii_leakage
+78. "Why Does Differential Privacy with Large Epsilon Defend Against Practical Membership Inference Attacks?" (2024). *arXiv:2402.09540*. https://arxiv.org/abs/2402.09540
 
-75. Tsinghua. "Awesome-LM-SSP: Language Model Security, Safety, and Privacy." https://github.com/ThuCCSLab/Awesome-LM-SSP
+79. "De-amplifying Bias from Differential Privacy in Language Model Fine-tuning." (2024). *arXiv:2402.04489*. https://arxiv.org/abs/2402.04489
+
+80. "Defending against Attacks in Deep Learning with Differential Privacy: A Survey." (2025). *Artificial Intelligence Review*. https://link.springer.com/article/10.1007/s10462-025-11350-3
+
+81. "Differential Privacy in Deep Learning: Privacy and Beyond." (2023). *Future Generation Computer Systems*. https://www.sciencedirect.com/science/article/abs/pii/S0167739X23002315
+
+82. "Defending against Backdoor Attacks in Federated Learning by Using Differential Privacy and OOD Data Attributes." (2025). *CMES*. https://www.sciopen.com/article/10.32604/cmes.2025.063811
+
+83. NIST. (2023). "Guidelines for Evaluating Differential Privacy Guarantees." *NIST SP 800-226 (Draft)*. https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-226.ipd.pdf
+
+84. "Differential Privacy and Artificial Intelligence: Potentials, Challenges, and Future Avenues." (2025). *EURASIP Journal on Information Security*. https://link.springer.com/article/10.1186/s13635-025-00203-9
 
 ---
 
-*Total: 75 references | Last updated: 2025-01-30*
+## GitHub Repositories
+
+85. SAFR AI Lab. "Survey-LLM: A Survey of Privacy Problems in Large Language Models." https://github.com/safr-ai-lab/survey-llm
+
+86. Chris Liu. "Awesome-LLM-Unlearning: A Resource Repository for Machine Unlearning in LLMs." https://github.com/chrisliu298/awesome-llm-unlearning
+
+87. Microsoft. "Analysing PII Leakage." https://github.com/microsoft/analysing_pii_leakage
+
+88. Tsinghua. "Awesome-LM-SSP: Language Model Security, Safety, and Privacy." https://github.com/ThuCCSLab/Awesome-LM-SSP
+
+---
+
+*Total: 88 references | Last updated: 2025-01-31*

@@ -15,6 +15,7 @@
 8. [PII Detection and Protection](#8-pii-detection-and-protection)
 9. [Regulatory and Compliance](#9-regulatory-and-compliance)
 10. [Industry Practices](#10-industry-practices)
+11. [DP Safety Benefits Beyond Privacy](#11-dp-safety-benefits-beyond-privacy)
 
 ---
 
@@ -751,6 +752,154 @@
 
 ---
 
+## 11. DP Safety Benefits Beyond Privacy
+
+### 11.1 VaultGemma: Differentially Private LLM from Scratch
+**Citation:** Google Research (2025). [Blog](https://research.google/blog/vaultgemma-the-worlds-most-capable-differentially-private-llm/)
+
+**Contributions:**
+- Largest open model (1B parameters) trained from scratch with DP
+- Achieves (ε ≤ 2.0, δ ≤ 1.1e−10) at sequence level
+- **No detectable memorization** when prompted with 50-token training prefixes
+- New scaling laws for DP training
+
+**Methods:**
+- Gemma 2 architecture with 26 layers, Multi-Query Attention
+- Poisson sampling instead of uniform batches (reduces noise requirements)
+- Sequence length limited to 1,024 tokens
+
+**Safety Implications:**
+- Demonstrates DP prevents memorization of potentially harmful training content
+- Privacy-by-design approach applicable to sensitive domains (healthcare, finance)
+
+**Limitations:**
+- Performance comparable to GPT-2 (5 years older) — quantifies privacy cost
+- High computational requirements
+
+---
+
+### 11.2 Does Differential Privacy Prevent Backdoor Attacks in Practice?
+**Citation:** arXiv:2311.06227 (2023)
+
+**Contributions:**
+- Empirical study of DP-SGD and PATE against backdoor/poisoning attacks
+- PATE effective due to bagging structure of teacher models
+- Introduces Label-DP as faster alternative
+
+**Key Findings:**
+- DP can prevent backdoor attacks, but **effectiveness depends on hyperparameters**
+- Number of backdoors in training data impacts DP success
+- Proper tuning can make DP more effective than specialized backdoor defenses
+
+**Safety Implications:**
+- DP limits influence of any single sample → limits poison sample influence
+- Potential dual-use: privacy protection + poisoning defense
+
+**Limitations:**
+- Not a silver bullet; requires careful configuration
+- Trade-off between privacy strength and attack resistance
+
+---
+
+### 11.3 Why Does Large Epsilon DP Defend Against Practical MIAs?
+**Citation:** arXiv:2402.09540 (2024)
+
+**Contributions:**
+- Explains why ε ≥ 7 (theoretically vacuous) still works in practice
+- Introduces Practical Membership Privacy (PMP) framework
+- Bridges gap between theoretical guarantees and empirical defense
+
+**Key Findings:**
+- Real attackers lack worst-case dataset knowledge
+- Large ε translates to much smaller PMP parameter
+- Provides principled guidance for ε selection
+
+**Safety Implications:**
+- Industrial deployments with large ε still provide meaningful protection
+- Practical security even without strong theoretical guarantees
+
+---
+
+### 11.4 Defending Against Attacks in Deep Learning with DP: A Survey
+**Citation:** Artificial Intelligence Review (2025). [Springer](https://link.springer.com/article/10.1007/s10462-025-11350-3)
+
+**Contributions:**
+- Comprehensive survey of DP for security beyond privacy
+- Documents DP's role in fairness, robustness, and overfitting prevention
+
+**Key Findings on Safety Benefits:**
+
+1. **Reduces Overfitting:**
+   - DP noise prevents models from memorizing individual data points
+   - Improves generalization to unseen data
+   - Clear dependence of membership advantage on generalization error
+
+2. **Defends Against Multiple Attack Types:**
+   - Membership inference attacks
+   - Attribute inference attacks
+   - Model inversion attacks
+   - Data poisoning (with proper configuration)
+
+3. **Fairness Implications (Mixed):**
+   - Can reduce bias by preventing outliers from dominating
+   - BUT can exacerbate unfairness for underrepresented groups ("poor get poorer")
+   - Mitigation: FairDP algorithms, Counterfactual Data Augmentation
+
+**Limitations:**
+- DP can amplify bias in LLM fine-tuning
+- Underrepresented groups suffer worse privacy/utility trade-offs
+
+---
+
+### 11.5 DP for Backdoor Defense in Federated Learning
+**Citation:** Various (2024-2025). CMES, ScienceDirect
+
+**Contributions:**
+- DP mechanisms limit single sample influence during updates
+- When properly tuned, reduces backdoor success rates
+
+**Methods:**
+- DP-SGD with out-of-distribution detection
+- Adaptive sample-splitting to isolate poisoned examples
+
+**Limitations:**
+- Significant degradation in benign task performance
+- Ongoing research to balance defense and utility
+
+---
+
+### 11.6 DP and Machine Unlearning for Safety
+**Citation:** Various surveys (2024-2025)
+
+**Contributions:**
+- DP methods used to isolate target data during training
+- Enables post-hoc privacy and safety improvements
+- Applications: model detoxification, jailbreaking defense, copyright protection
+
+**Key Insight:**
+- Traditional unlearning categories include DP-based approaches
+- DP provides formal framework for limiting data influence
+
+**Limitations:**
+- DP alone doesn't achieve true unlearning
+- Complements but doesn't replace dedicated unlearning methods
+
+---
+
+### 11.7 De-amplifying Bias from DP in LLM Fine-tuning
+**Citation:** arXiv:2402.04489 (2024)
+
+**Contributions:**
+- Documents that DP amplifies gender, racial, and religious bias in LLM fine-tuning
+- Identifies cause: disparity in gradient convergence across sub-groups
+- Proposes Counterfactual Data Augmentation (CDA) as mitigation
+
+**Safety Implications:**
+- DP alone may harm fairness — requires additional interventions
+- CDA can mitigate bias amplification
+
+---
+
 ## Key Observations Across Literature
 
 1. **DP-Utility Trade-off Persists:** Strong privacy (ε<1) typically degrades utility significantly
@@ -759,7 +908,9 @@
 4. **Semantic Privacy Understudied:** Inference attacks may be more dangerous than memorization
 5. **Unlearning is Incomplete:** Current methods suppress surface behavior but leave traces
 6. **Regulatory Uncertainty:** GDPR erasure requirements unclear for neural networks
+7. **DP Has Safety Benefits Beyond Privacy:** Reduces overfitting, defends against backdoors/poisoning, limits memorization of harmful content
+8. **DP-Fairness Tension:** DP can exacerbate bias for underrepresented groups; requires mitigation strategies
 
 ---
 
-*Last updated: 2025-01-30*
+*Last updated: 2025-01-31*

@@ -6,478 +6,259 @@
 
 ## Overview
 
-This document reviews existing survey papers on privacy in Large Language Models to contextualize our research and identify gaps. I identified **15+ substantial surveys** published since 2024, indicating this is an actively surveyed area.
+Before diving into the primary research, I conducted a systematic review of existing survey papers on privacy in Large Language Models. This serves to contextualize our work and identify gaps in the literature that our synthesis might fill. I identified fifteen substantial surveys published since 2024, which indicates this is an actively surveyed area with considerable scholarly attention.
 
-### Survey Landscape Summary
-
-| Category | Count | Key Publications |
-|----------|-------|------------------|
-| General Privacy Surveys | 6 | Miranda et al., Das et al., Wang et al. |
-| SoK Papers | 3 | Shanmugarasa et al., Semantic Privacy SoK, RAG Privacy SoK |
-| Machine Unlearning Surveys | 3 | Geng et al., arXiv:2510.25117, Springer AIR |
-| Domain-Specific | 3 | Healthcare, Mobile LLMs, Generative AI |
-| Security + Privacy Combined | 3 | Yao et al., ACM CSUR entries |
+The survey landscape breaks down roughly as follows: six general privacy surveys, three formal Systematizations of Knowledge (SoK papers), three surveys combining security and privacy concerns, three focused specifically on machine unlearning, and three addressing domain-specific applications like healthcare and mobile deployment. What this reveals is that while privacy in LLMs is well-surveyed at a high level, there remains room for deeper technical treatment of specific mechanisms—particularly differential privacy methods and their practical trade-offs.
 
 ---
 
-## 1. Comprehensive Privacy Surveys
+## Part 1: Comprehensive Privacy Surveys
 
 ### 1.1 Preserving Privacy in Large Language Models: A Survey on Current Threats and Solutions
 
-**Citation:** Miranda, M., Ruzzetti, E.S., Santilli, A., Zanzotto, F.M., Bratières, S., & Rodolà, E. (2024/2025). *Transactions on Machine Learning Research (TMLR)*.
+Miranda, M., Ruzzetti, E.S., Santilli, A., Zanzotto, F.M., Bratières, S., & Rodolà, E. (2024/2025). *Transactions on Machine Learning Research*.
 
-**Source:** [arXiv:2408.05212](https://arxiv.org/abs/2408.05212) | [OpenReview](https://openreview.net/forum?id=Ss9MTTN7OL)
+[https://arxiv.org/abs/2408.05212](https://arxiv.org/abs/2408.05212)
 
-**Contributions:**
-- Comprehensive examination of privacy threats across the LLM lifecycle
-- Proposes solutions spanning dataset anonymization → DP training → machine unlearning
-- Emphasizes healthcare and other critical domains
+This survey provides a comprehensive examination of privacy threats across the entire LLM lifecycle, proposing solutions that span dataset anonymization, differentially private training, and machine unlearning. The authors place particular emphasis on healthcare and other critical domains where privacy violations carry especially serious consequences. They identify differential privacy as a core solution for both training and inference, though the paper does not provide extensive empirical comparisons between different DP methods. The authors acknowledge the "ongoing challenges" in balancing privacy with utility, but offer limited quantitative benchmarking of defense effectiveness.
 
-**Scope:**
-- Privacy attacks on LLMs (memorization, extraction)
-- Multi-stage privacy solutions
-- Implementation tools and approaches
-
-**DP Coverage:**
-- Identifies DP as core solution for both training and inference
-- Does not provide extensive empirical comparison of DP methods
-
-**Limitations:**
-- Acknowledges "ongoing challenges" in balancing privacy and utility
-- Limited quantitative benchmarking of defense effectiveness
-
-**Future Directions:**
-- More secure and trustworthy AI systems
-- Domain-specific privacy mechanisms
-
-**Relevance to Our Work:** High overlap with our scope; differs in lacking detailed DP method comparisons.
+**My take:** This is one of the most thorough general surveys available, and it's a good starting point for anyone new to the field. However, it treats DP as one tool among many rather than exploring the nuances of different DP approaches. If you're specifically interested in differential privacy mechanisms, you'll need to look elsewhere for technical depth. The healthcare emphasis is valuable since that's where privacy concerns are most acute, but it means some of the discussion is domain-specific rather than generally applicable.
 
 ---
 
 ### 1.2 On Protecting the Data Privacy of Large Language Models: A Survey
 
-**Citation:** Yan, J., et al. (2024). *arXiv:2403.05156*.
+Yan, J., et al. (2024).
 
-**Source:** [arXiv:2403.05156](https://arxiv.org/abs/2403.05156)
+[https://arxiv.org/abs/2403.05156](https://arxiv.org/abs/2403.05156)
 
-**Contributions:**
-- Taxonomy of passive privacy leakage vs. active privacy attacks
-- Reviews protection mechanisms across LLM operational stages
-- 18-page survey with 4 figures
+This 18-page survey introduces a useful taxonomy distinguishing passive privacy leakage (unintentional) from active privacy attacks (adversarial). The authors review protection mechanisms across the pre-training, fine-tuning, and inference stages. Differential privacy is discussed as a fundamental mitigation, with particular attention to its role in preventing membership inference and model inversion attacks. The paper acknowledges that the rapidly evolving nature of the field limits currency, and like many surveys, it provides limited empirical comparison between approaches. Future directions include privacy in multi-modal LLMs and scalable privacy-preserving training.
 
-**Scope:**
-- Pre-training, fine-tuning, inference stages
-- Both unintentional leakage and adversarial attacks
-
-**DP Coverage:**
-- Discusses DP as fundamental mitigation
-- Notes DP's role in preventing membership inference and model inversion
-
-**Limitations:**
-- Rapidly evolving field limits currency
-- Limited empirical comparison
-
-**Future Directions:**
-- Privacy in multi-modal LLMs
-- Scalable privacy-preserving training
-
-**Relevance to Our Work:** Complementary; we provide more depth on DP mechanisms and emerging methods.
+**My take:** The passive versus active taxonomy is genuinely useful for thinking about the threat landscape—it forces you to consider both the accidents and the adversaries. This survey is more accessible than some of the more technical papers, making it a good introduction. The coverage of all three stages (pre-training, fine-tuning, inference) is comprehensive without being overwhelming. However, by March 2024 the field was already moving fast, and some of the content feels slightly dated now, particularly around the PEFT+DP combinations that have become so important.
 
 ---
 
 ### 1.3 A Survey on Privacy Risks and Protection in Large Language Models
 
-**Citation:** (2025). *Journal of King Saud University - Computer and Information Sciences* (Springer).
+(2025). *Journal of King Saud University - Computer and Information Sciences*.
 
-**Source:** [Springer](https://link.springer.com/article/10.1007/s44443-025-00177-1) | [arXiv:2505.01976](https://arxiv.org/abs/2505.01976)
+[https://arxiv.org/abs/2505.01976](https://arxiv.org/abs/2505.01976)
 
-**Contributions:**
-- Comprehensive overview of privacy risks and solutions
-- Analyzes model inversion, training data extraction, membership inference
-- Emphasizes deployer responsibility for safeguards
+This recent survey analyzes model inversion, training data extraction, and membership inference attacks, with particular emphasis on deployer responsibility for implementing safeguards. The authors highlight DP as a crucial deployer safeguard alongside input/output filtering, and they cover audit pipelines and real-time monitoring approaches. Given its 2025 publication date, it may not cover the very latest developments, but it's more current than most available surveys.
 
-**Scope:**
-- Privacy leakage mechanisms
-- Attack techniques
-- Defense implementations
-
-**DP Coverage:**
-- Highlights DP as crucial deployer safeguard
-- Discusses input/output filtering alongside DP
-- Covers audit pipelines and real-time monitoring
-
-**Limitations:**
-- Recent publication; may not cover latest 2025 developments
-
-**Relevance to Our Work:** Strong overlap; we add more on DP-specific methods and PEFT combinations.
+**My take:** The emphasis on deployer responsibility is refreshing—much of the privacy literature focuses on what model developers should do during training, but this paper takes seriously the question of what operators can do after deployment. The coverage of audit pipelines is particularly valuable since privacy auditing is an underexplored area. This is a good choice for practitioners who are deploying rather than building LLMs.
 
 ---
 
 ### 1.4 Privacy Issues in Large Language Models: A Survey
 
-**Citation:** (2024). *Computers & Electrical Engineering* (ScienceDirect).
+(2024). *Computers & Electrical Engineering*.
 
-**Source:** [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0045790624006256)
+[https://www.sciencedirect.com/science/article/abs/pii/S0045790624006256](https://www.sciencedirect.com/science/article/abs/pii/S0045790624006256)
 
-**Contributions:**
-- Identifies passive leakage and active attacks
-- Reviews: Data Sanitization, Federated Learning, DP, HE, MPC
-- Addresses multimodal and personalized LLM challenges
+This survey identifies passive leakage and active attacks, reviewing data sanitization, federated learning, differential privacy, homomorphic encryption, and multi-party computation as protection approaches. The authors address emerging challenges with multimodal and personalized LLMs. A notable limitation they acknowledge is the difficulty of interpreting black-box models for privacy analysis—you often can't tell what the model has memorized without attacking it.
 
-**Scope:**
-- Training data threats
-- User data threats
-- Black-box interpretation challenges
-
-**DP Coverage:**
-- Lists DP among core protection approaches
-- Acknowledges challenges in black-box LLM interpretation
-
-**Limitations:**
-- Notes difficulty interpreting black-box models for privacy analysis
-
-**Future Directions:**
-- Multimodal LLM privacy
-- Personalized LLM privacy
-
-**Relevance to Our Work:** We exclude federated learning but provide deeper DP focus.
+**My take:** This is a broader survey that covers the full spectrum of privacy-enhancing technologies rather than focusing specifically on differential privacy. The inclusion of federated learning, homomorphic encryption, and MPC provides useful context for understanding where DP fits in the larger toolkit. However, this breadth comes at the cost of depth—if you want to understand DP specifically, you'll find the treatment somewhat shallow. The discussion of multimodal LLM privacy is forward-looking but necessarily speculative given how new the area is.
 
 ---
 
-## 2. Systematizations of Knowledge (SoK)
+## Part 2: Systematizations of Knowledge (SoK Papers)
+
+SoK papers aim to organize and synthesize existing knowledge rather than present new research. They're particularly valuable for understanding the state of a field and identifying open problems.
 
 ### 2.1 SoK: The Privacy Paradox of Large Language Models
 
-**Citation:** Shanmugarasa, Y., Ding, M., Chamikara, M.A.P., & Rakotoarivelo, T. (2024/2025). *ACM Asia CCS 2025*.
+Shanmugarasa, Y., Ding, M., Chamikara, M.A.P., & Rakotoarivelo, T. (2024/2025). *ACM Asia CCS 2025*.
 
-**Source:** [arXiv:2506.12699](https://arxiv.org/abs/2506.12699) | [ACM](https://dl.acm.org/doi/10.1145/3708821.3733888)
+[https://arxiv.org/abs/2506.12699](https://arxiv.org/abs/2506.12699)
 
-**Contributions:**
-- First SoK to address privacy beyond training data
-- Four-category framework: training data, user prompts, outputs, agents
-- Evaluates mitigation effectiveness and limitations
+This is the first SoK to address privacy concerns beyond training data, introducing a four-category framework covering privacy in training data, user prompts, generated outputs, and LLM agents. The authors evaluate the effectiveness and limitations of various mitigations, noting that prior surveys had overlooked user interaction and agent privacy risks. Differential privacy is addressed as a prominent technique, with acknowledgment of utility trade-offs, but the paper's scope is deliberately broader than any single defense mechanism.
 
-**Novel Framework:**
-1. Privacy in LLM training data
-2. Privacy challenges from user prompts
-3. Privacy vulnerabilities in generated outputs
-4. Privacy issues in LLM agents
-
-**DP Coverage:**
-- Addresses DP as prominent technique
-- Notes utility trade-offs
-- Covers DP in context of other mitigations
-
-**Key Insight:**
-- Prior surveys overlooked user interaction and agent privacy risks
-- This is a significant gap our work also addresses
-
-**Limitations:**
-- Acknowledges mitigations have both effectiveness and limitations
-
-**Relevance to Our Work:** Highly relevant; shares our concern for agent privacy and inference-time risks.
+**My take:** This is an excellent paper that deserves more attention. The four-category framework is genuinely novel and forces consideration of privacy dimensions that most surveys ignore. In particular, the attention to agent privacy risks is prescient—as LLMs increasingly use tools and interact with external systems, the attack surface expands dramatically. The observation that prior surveys overlooked user interaction privacy is spot-on. If you read only one SoK in this area, this should be it.
 
 ---
 
 ### 2.2 SoK: Semantic Privacy in Large Language Models
 
-**Citation:** (2025). *arXiv:2506.23603*.
+(2025).
 
-**Source:** [arXiv:2506.23603](https://arxiv.org/abs/2506.23603)
+[https://arxiv.org/abs/2506.23603](https://arxiv.org/abs/2506.23603)
 
-**Contributions:**
-- Focus on semantic privacy (beyond verbatim memorization)
-- Lifecycle-centric framework: input → pretraining → fine-tuning → alignment
-- Categorizes attack vectors and defenses
+This SoK focuses on semantic privacy—privacy risks that go beyond verbatim memorization to include paraphrasing and inference. The authors present a lifecycle-centric framework covering input, pretraining, fine-tuning, and alignment stages, categorizing attack vectors and defenses at each stage. They analyze latent representation leakage, where information can be extracted from intermediate model states even when outputs appear safe. The paper's critical finding is that there are "critical gaps in semantic-level protection, especially against contextual inference and latent representation leakage."
 
-**Key Innovation:**
-- Addresses privacy risks from paraphrasing and inference, not just verbatim reproduction
-- Analyzes latent representation leakage
-
-**DP Coverage:**
-- Lists DP among key defenses
-- Also covers embedding encryption, edge computing, unlearning
-
-**Critical Finding:**
-- "Critical gaps in semantic-level protection, especially against contextual inference and latent representation leakage"
-
-**Relevance to Our Work:** Very high; aligns with our emphasis on inference attacks beyond memorization.
+**My take:** This is one of the most intellectually ambitious papers in the survey literature. The distinction between verbatim memorization and semantic inference is crucial and underappreciated. Most privacy research focuses on whether a model can regurgitate training data verbatim, but the more insidious threat may be that models can infer sensitive information that was never explicitly stated. The lifecycle-centric framework is well-structured, and the identification of latent representation leakage as a critical gap is an important contribution. This paper changed how I think about the problem.
 
 ---
 
 ### 2.3 SoK: Privacy Risks and Mitigations in RAG Systems
 
-**Citation:** (2026). *arXiv:2601.03979*.
+(2026).
 
-**Source:** [arXiv:2601.03979](https://arxiv.org/abs/2601.03979)
+[https://arxiv.org/abs/2601.03979](https://arxiv.org/abs/2601.03979)
 
-**Contributions:**
-- First systematization of RAG-specific privacy risks
-- Systematic literature review
-- Framework for risks, mitigations, and evaluation
+This paper provides the first systematization specifically focused on Retrieval-Augmented Generation (RAG) systems. The authors conducted a systematic literature review to develop a framework for understanding risks, mitigations, and evaluation approaches when LLMs are connected to sensitive knowledge bases. RAG poisoning attacks receive particular attention—these occur when adversaries inject malicious content into retrieval corpora to manipulate model outputs.
 
-**Scope:**
-- Privacy risks when using sensitive knowledge bases
-- RAG poisoning attacks
-- Mitigation techniques for retrieval-augmented systems
-
-**Relevance to Our Work:** Complementary; we cover RAG poisoning in attack section but don't focus exclusively on RAG.
+**My take:** RAG is increasingly how LLMs are deployed in practice, so this specialized focus is valuable. The privacy risks in RAG are qualitatively different from training-time risks because the retrieval corpus can be modified dynamically, creating an ongoing attack surface. The 2026 publication date means this is the most recent paper in the survey literature, and it benefits from seeing how RAG deployments have evolved. However, the narrow focus on RAG means you'll need other sources for training-time privacy concerns.
 
 ---
 
-## 3. Security + Privacy Combined Surveys
+## Part 3: Security and Privacy Combined Surveys
+
+Several surveys treat security and privacy together, recognizing that the distinction between them is often blurred in practice.
 
 ### 3.1 Security and Privacy Challenges of Large Language Models: A Survey
 
-**Citation:** Das, B.C., Amini, M.H., & Wu, Y. (2024). *ACM Computing Surveys* 57(6), 1-39.
+Das, B.C., Amini, M.H., & Wu, Y. (2024). *ACM Computing Surveys* 57(6), 1-39.
 
-**Source:** [arXiv:2402.00888](https://arxiv.org/abs/2402.00888) | [ACM](https://dl.acm.org/doi/10.1145/3712001)
+[https://arxiv.org/abs/2402.00888](https://arxiv.org/abs/2402.00888)
 
-**Contributions:**
-- Thorough review of security AND privacy challenges
-- Covers training data and user risks
-- Domain-specific analysis (transportation, education, healthcare)
+This thorough review covers both security and privacy challenges, including jailbreaking attacks, data poisoning, and PII leakage attacks. The authors provide domain-specific analysis for transportation, education, and healthcare applications. Differential privacy is listed among defense approaches but is not the primary focus. The paper identifies research gaps in LLM security that point toward future work.
 
-**Scope:**
-- Jailbreaking attacks
-- Data poisoning
-- PII leakage attacks
-- Domain-specific applications
-
-**DP Coverage:**
-- Lists among defense approaches
-- Not primary focus
-
-**Future Directions:**
-- Identifies research gaps in LLM security domain
-
-**Relevance to Our Work:** Broader scope (includes security); we provide deeper privacy/DP focus.
+**My take:** The combined security-and-privacy framing is appropriate for practitioners who need to understand the full threat landscape. Jailbreaking and data poisoning are security concerns that can have privacy implications, and treating them together makes sense. The domain-specific sections are useful for understanding how abstract threats manifest in specific applications. However, if your primary interest is privacy and differential privacy specifically, you'll find that DP is one item in a long list rather than a focus.
 
 ---
 
 ### 3.2 Unique Security and Privacy Threats of LLMs: A Comprehensive Survey
 
-**Citation:** Wang, S., Zhu, T., Liu, B., Ding, M., Ye, D., Zhou, W., & Yu, P.S. (2024/2025). *ACM Computing Surveys*.
+Wang, S., Zhu, T., Liu, B., Ding, M., Ye, D., Zhou, W., & Yu, P.S. (2024/2025). *ACM Computing Surveys*.
 
-**Source:** [arXiv:2406.07973](https://arxiv.org/abs/2406.07973)
+[https://arxiv.org/abs/2406.07973](https://arxiv.org/abs/2406.07973)
 
-**Contributions:**
-- Systematic taxonomy across LLM lifecycle
-- 35 pages, 9 tables, 12 figures
-- Four-scenario framework
+This is an impressively comprehensive survey at 35 pages with 9 tables and 12 figures. The authors develop a four-scenario framework covering pre-training threats, fine-tuning risks, deployment security, and LLM-agent threats. A key insight is that LLM threats "fundamentally differ from traditional models" and require scenario-specific countermeasures. Differential privacy is addressed within the countermeasures discussion but is not a primary focus.
 
-**Framework:**
-1. Pre-training threats
-2. Fine-tuning risks
-3. Deployment security
-4. LLM-agent threats
-
-**Key Insight:**
-- LLM threats "fundamentally differ from traditional models"
-- Requires scenario-specific countermeasures
-
-**DP Coverage:**
-- Addressed within countermeasures
-- Not primary focus
-
-**Relevance to Our Work:** Strong structural overlap; we emphasize DP more deeply.
+**My take:** The scale and organization of this survey are impressive—the tables and figures alone are worth consulting as reference material. The argument that LLM threats are fundamentally different from traditional ML threats is important and well-supported. The four-scenario framework provides a useful structure for thinking about where different defenses apply. However, the breadth means that any individual topic receives relatively shallow treatment. This is a good map of the territory but not a detailed guide to any specific region.
 
 ---
 
 ### 3.3 A Survey on Large Language Model (LLM) Security and Privacy: The Good, The Bad, and The Ugly
 
-**Citation:** Yao, Y., Duan, J., Xu, K., Cai, Y., Sun, Z., & Zhang, Y. (2023/2024). *High-Confidence Computing* (2024).
+Yao, Y., Duan, J., Xu, K., Cai, Y., Sun, Z., & Zhang, Y. (2023/2024). *High-Confidence Computing*.
 
-**Source:** [arXiv:2312.02003](https://arxiv.org/abs/2312.02003) | [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S266729522400014X)
+[https://arxiv.org/abs/2312.02003](https://arxiv.org/abs/2312.02003)
 
-**Contributions:**
-- Novel Good/Bad/Ugly framework
-- Explores LLMs as security tools AND attack vectors
+This survey introduces a memorable Good/Bad/Ugly framework. The Good covers how LLMs can be used for security purposes like code vulnerability detection. The Bad addresses how LLMs enable user-level attacks and offensive capabilities. The Ugly covers inherent vulnerabilities and extraction attacks. The authors mention differential privacy, zero-knowledge proofs, and federated learning as Privacy Enhancing Techniques, though without deep coverage. They note that parameter and model extraction attack research is "limited and often theoretical" and that safe instruction tuning "requires more exploration."
 
-**Framework:**
-- **The Good:** LLMs for code vulnerability detection, security enhancement
-- **The Bad:** LLMs enabling user-level attacks, offensive capabilities
-- **The Ugly:** Inherent vulnerabilities, extraction attacks
-
-**DP Coverage:**
-- Mentions zero-knowledge proofs, DP, federated learning as Privacy Enhancing Techniques
-- Not deep coverage
-
-**Limitations:**
-- Parameter/model extraction attacks research is "limited and often theoretical"
-- Safe instruction tuning "requires more exploration"
-
-**Relevance to Our Work:** Different framing (security-centric); we focus purely on privacy.
+**My take:** The Good/Bad/Ugly framing is clever and memorable, making this paper easy to navigate and cite. The recognition that LLMs are both attack targets and attack tools is important—most surveys focus only on one side. However, the privacy coverage is relatively shallow, treating DP as one item in a list. This survey is most useful for understanding the dual-use nature of LLMs rather than for technical depth on any particular defense. The acknowledgment that extraction attack research is limited and theoretical is honest and helpful for calibrating expectations.
 
 ---
 
-## 4. Machine Unlearning Surveys
+## Part 4: Machine Unlearning Surveys
+
+Machine unlearning has received dedicated survey attention because it sits at the intersection of privacy law (right to erasure) and technical capability.
 
 ### 4.1 A Comprehensive Survey of Machine Unlearning Techniques for Large Language Models
 
-**Citation:** Geng, J., Li, Q., Woisetschlaeger, H., Chen, Z., Cai, F., Wang, Y., Nakov, P., Jacobsen, H.A., & Karray, F. (2025). *arXiv:2503.01854*.
+Geng, J., Li, Q., Woisetschlaeger, H., Chen, Z., Cai, F., Wang, Y., Nakov, P., Jacobsen, H.A., & Karray, F. (2025).
 
-**Source:** [arXiv:2503.01854](https://arxiv.org/abs/2503.01854)
+[https://arxiv.org/abs/2503.01854](https://arxiv.org/abs/2503.01854)
 
-**Contributions:**
-- Comprehensive taxonomy of LLM unlearning methods
-- Definitions and paradigms
-- Evaluation metrics and benchmarks
-- Strengths and limitations of approaches
+This survey provides a comprehensive taxonomy of LLM unlearning methods, covering definitions, paradigms, evaluation metrics, and benchmarks. The authors systematically analyze the strengths and limitations of different approaches to removing sensitive or illegal information influence from models without full retraining. They identify the key challenge as balancing data removal with model preservation—you want to forget specific things without degrading general capabilities.
 
-**Scope:**
-- Removing sensitive/illegal information influence
-- Preserving utility without full retraining
-
-**Key Challenge:**
-- Balancing data removal with model preservation
-
-**Relevance to Our Work:** Directly relevant to our unlearning section; we cite but don't duplicate.
+**My take:** This is the best single source for understanding the current state of machine unlearning in LLMs. The taxonomy is well-organized and the coverage is comprehensive. The honest treatment of limitations is particularly valuable—the authors don't oversell current capabilities. If you're trying to understand whether and how to implement unlearning in practice, start here. The benchmark coverage is especially useful for evaluation.
 
 ---
 
 ### 4.2 A Survey on Unlearning in Large Language Models
 
-**Citation:** (2025). *arXiv:2510.25117*.
+(2025).
 
-**Source:** [arXiv:2510.25117](https://arxiv.org/abs/2510.25117)
+[https://arxiv.org/abs/2510.25117](https://arxiv.org/abs/2510.25117)
 
-**Contributions:**
-- Reviews 180+ papers since 2021
-- Novel taxonomy by training stage: training time, post-training, inference time
+This ambitious survey reviews over 180 papers published since 2021, organizing them by training stage: training-time approaches, post-training approaches, and inference-time approaches. This temporal taxonomy provides a different perspective from method-based taxonomies and helps clarify when different techniques can be applied.
 
-**Scope:**
-- Comprehensive literature coverage
-- Stage-based categorization
-
-**Relevance to Our Work:** More comprehensive on unlearning specifically; we provide broader context.
+**My take:** The sheer scale of this survey—180+ papers—is impressive and makes it a valuable reference. The training stage taxonomy is useful because it answers the practical question of "when can I apply this technique?" However, the breadth means that individual papers receive less attention. This is more of an annotated bibliography than a critical synthesis. Use it for finding papers rather than understanding them.
 
 ---
 
 ### 4.3 A Survey on Large Language Models Unlearning: Taxonomy, Evaluations, and Future Directions
 
-**Citation:** (2025). *Artificial Intelligence Review* (Springer).
+(2025). *Artificial Intelligence Review*.
 
-**Source:** [Springer](https://link.springer.com/article/10.1007/s10462-025-11376-7)
+[https://link.springer.com/article/10.1007/s10462-025-11376-7](https://link.springer.com/article/10.1007/s10462-025-11376-7)
 
-**Contributions:**
-- Taxonomy of unlearning algorithms
-- Evaluation methods including benchmarks and threat models
-- Novel "robustness" objective formulation
+This survey proposes robustness as an additional unlearning objective beyond simple forgetting. The authors develop a taxonomy of unlearning algorithms and evaluation methods, including benchmarks and threat models. Applications covered include copyright protection, model detoxification, and jailbreaking defense.
 
-**Applications:**
-- Copyright protection
-- Model detoxification
-- Jailbreaking defense
-
-**Key Finding:**
-- Proposes robustness as additional unlearning objective beyond forgetting
-
-**Relevance to Our Work:** Adds robustness perspective we don't emphasize.
+**My take:** The addition of robustness as an objective is an important contribution. Most unlearning work asks "did the model forget?" but this paper also asks "is the forgetting robust to adversarial probing?" This is crucial because surface-level forgetting that can be circumvented by clever prompting isn't really forgetting at all. The connection to jailbreaking defense is novel and suggests interesting future directions.
 
 ---
 
-## 5. Domain-Specific Surveys
+## Part 5: Domain-Specific Surveys
+
+Three surveys focus on specific application domains or deployment contexts.
 
 ### 5.1 Privacy-Preserving Techniques in Generative AI and LLMs: A Narrative Review
 
-**Citation:** (2024). *MDPI Information* 15(11), 697.
+(2024). *MDPI Information* 15(11), 697.
 
-**Source:** [MDPI](https://www.mdpi.com/2078-2489/15/11/697)
+[https://www.mdpi.com/2078-2489/15/11/697](https://www.mdpi.com/2078-2489/15/11/697)
 
-**Contributions:**
-- Narrative review of DP, FL, HE for generative AI
-- Focus on preventing memorization of sensitive data
+This narrative review centers on differential privacy, federated learning, and homomorphic encryption for generative AI, with particular focus on preventing memorization of sensitive data. Of the general surveys, this one has the strongest focus on differential privacy specifically.
 
-**DP Coverage:**
-- Central focus on differential privacy
-- Also covers federated learning and homomorphic encryption
-
-**Relevance to Our Work:** Closest to our DP focus; we provide more technical depth.
+**My take:** This is the existing survey closest to our own focus on differential privacy. The narrative review format makes it more readable than some of the more taxonomic surveys. However, even here the DP treatment is relatively high-level—you won't find detailed comparisons of DP-SGD variants or PEFT+DP combinations. Still, this is a good starting point if DP is your primary interest.
 
 ---
 
 ### 5.2 A Survey on Privacy Issues and Mitigation Strategies for LLMs in Healthcare
 
-**Citation:** (2025). *The Journal of Supercomputing* (Springer).
+(2025). *The Journal of Supercomputing*.
 
-**Source:** [Springer](https://link.springer.com/article/10.1007/s11227-025-08146-1)
+[https://link.springer.com/article/10.1007/s11227-025-08146-1](https://link.springer.com/article/10.1007/s11227-025-08146-1)
 
-**Contributions:**
-- Healthcare-specific privacy framework
-- Consolidates algorithmic and compliance-based defenses
-- Unlike prior surveys, treats privacy and performance together
+This survey develops a healthcare-specific privacy framework that consolidates algorithmic and compliance-based defenses. Unlike prior surveys that treat privacy and performance separately, this one explicitly considers them together. The healthcare focus means attention to HIPAA and other regulatory requirements in addition to technical measures.
 
-**Relevance to Our Work:** Domain-specific complement to our general survey.
+**My take:** Healthcare is perhaps the single most important domain for LLM privacy, given the sensitivity of medical data and the strict regulatory requirements. This survey does a good job of bridging the technical and compliance perspectives. If you're deploying LLMs in healthcare, this is essential reading. For general audiences, the domain-specific framing may be more detailed than necessary.
 
 ---
 
 ### 5.3 A Survey: Towards Privacy and Security in Mobile Large Language Models
 
-**Citation:** (2025). *arXiv:2509.02411*.
+(2025).
 
-**Source:** [arXiv:2509.02411](https://arxiv.org/abs/2509.02411)
+[https://arxiv.org/abs/2509.02411](https://arxiv.org/abs/2509.02411)
 
-**Contributions:**
-- Mobile LLM-specific privacy and security
-- Covers DP, FL, prompt encryption
-- Unique threats: side-channel attacks on mobile devices
+This survey addresses the unique privacy and security challenges of running LLMs on mobile devices. Coverage includes differential privacy, federated learning, and prompt encryption, along with threats specific to mobile contexts like side-channel attacks. The on-device computation context creates different trade-offs than cloud deployment.
 
-**Relevance to Our Work:** Addresses deployment context we don't cover in depth.
+**My take:** Mobile LLM deployment is an increasingly important context that receives little attention in general surveys. The side-channel attack discussion is particularly relevant—when the model runs on a device you don't control, hardware-level attacks become possible. However, this is a specialized topic, and most readers interested in LLM privacy can safely skip it unless mobile deployment is specifically relevant.
 
 ---
 
-## 6. Gap Analysis: What Existing Surveys Miss
+## Gap Analysis: What Existing Surveys Miss
 
-Based on this review, existing surveys have the following gaps that our work addresses:
+Based on this comprehensive review, I identified several gaps in the existing survey literature that our work addresses.
 
-| Gap | Which Surveys Miss It | Our Coverage |
-|-----|----------------------|--------------|
-| Deep DP method comparison | Most surveys list DP but don't compare methods | Detailed analysis of DP-SGD, DP-LoRA, DP-ZO, etc. |
-| PEFT + DP synergy | Briefly mentioned if at all | Dedicated section on parameter-efficient DP |
-| Privacy auditing methods | Rarely covered | Section on auditing and empirical ε |
-| Quantitative privacy-utility trade-offs | Often qualitative | Tables with specific ε values and accuracy drops |
-| Synthetic data via DP | Underexplored | Full section on DP synthetic generation |
-| Semantic inference attacks | SoK:Semantic Privacy covers, others miss | Emphasized as emerging threat |
+**Deep comparison of DP methods.** Most surveys list differential privacy as one defense among many but do not compare DP-SGD, DP-LoRA, DP-ZO, and subspace methods. Our work provides detailed analysis of these variants and their trade-offs.
+
+**PEFT + DP synergy.** The combination of parameter-efficient fine-tuning with differential privacy is briefly mentioned in some surveys but rarely receives dedicated attention. We cover this synergy in depth because it represents the current state of the art for practical private fine-tuning.
+
+**Privacy auditing methods.** Methods for empirically measuring privacy leakage are rarely covered in existing surveys. We include a section on auditing because the gap between theoretical ε guarantees and empirical privacy is often substantial.
+
+**Quantitative privacy-utility trade-offs.** Many surveys discuss the privacy-utility trade-off qualitatively but don't provide specific numbers. We include tables with specific ε values and corresponding accuracy measurements.
+
+**Synthetic data generation via DP.** Using differentially private LLMs to generate synthetic training data is underexplored in the survey literature. We cover this pipeline in detail.
+
+**Semantic inference attacks.** The SoK on Semantic Privacy covers this, but other surveys largely miss the distinction between verbatim memorization and semantic inference. We emphasize this as an emerging threat.
 
 ---
 
-## 7. Positioning Our Work
+## Positioning Our Work
 
-### Overlaps with Existing Surveys
-- General privacy threat taxonomy (well-covered)
-- Basic DP concepts (covered by all)
-- Machine unlearning overview (multiple dedicated surveys)
-- Attack descriptions (thoroughly surveyed)
+### Where We Overlap
+
+Several areas are already well-covered in existing surveys. General privacy threat taxonomies appear in nearly every survey we reviewed. Basic differential privacy concepts are covered by all. Machine unlearning has multiple dedicated surveys with comprehensive coverage. Attack descriptions are thoroughly surveyed across multiple papers.
 
 ### Our Unique Contributions
-1. **DP-Focused Depth:** More detailed treatment of DP variants (DP-SGD, DP-LoRA, DP-ZO, subspace methods)
-2. **PEFT Integration:** Systematic coverage of parameter-efficient + DP combinations
-3. **Privacy Auditing:** Dedicated coverage of empirical privacy measurement
-4. **Synthetic Data Pipeline:** DP for synthetic data generation (Aug-PE, etc.)
-5. **Practical Trade-offs:** Quantitative privacy-utility comparisons with specific ε values
-6. **2025 Currency:** Includes papers from late 2024 and early 2025
 
-### Recommendation
-Our work is **complementary** to existing surveys rather than duplicative. It serves as a **DP-focused technical deep-dive** that readers can use alongside broader surveys like Miranda et al. (2024) or the SoK papers for comprehensive understanding.
+First, we provide DP-focused depth with detailed treatment of DP variants including DP-SGD, DP-LoRA, DP-ZO, and subspace methods. Second, we offer systematic coverage of PEFT integration—how parameter-efficient methods combine with differential privacy. Third, we dedicate attention to privacy auditing and empirical privacy measurement. Fourth, we cover the synthetic data pipeline for DP-based synthetic data generation. Fifth, we provide practical trade-offs with quantitative privacy-utility comparisons using specific ε values. Sixth, our 2025 currency includes papers from late 2024 and early 2025 that earlier surveys could not cover.
+
+### Bottom Line
+
+Our work is complementary to existing surveys rather than duplicative. It serves as a DP-focused technical deep-dive that readers can use alongside broader surveys like Miranda et al. (2024) or the SoK papers. If you want a broad overview of LLM privacy, the existing surveys are excellent starting points. If you want to understand differential privacy mechanisms specifically, including practical implementation guidance and quantitative trade-offs, our synthesis provides depth that existing surveys lack.
 
 ---
 
 ## Summary Statistics
 
-| Metric | Count |
-|--------|-------|
-| Total surveys reviewed | 15 |
-| General privacy surveys | 4 |
-| SoK papers | 3 |
-| Security + privacy combined | 3 |
-| Unlearning-specific | 3 |
-| Domain-specific | 3 |
-| Published in 2024 | 8 |
-| Published in 2025 | 7 |
-| With substantial DP coverage | 6 |
-| Peer-reviewed (journal/conference) | 9 |
-| arXiv preprints only | 6 |
+In total, I reviewed fifteen surveys: four general privacy surveys, three SoK papers, three combining security and privacy, three focused specifically on unlearning, and three addressing domain-specific applications. Of these, eight were published in 2024 and seven in 2025, reflecting the rapid growth of interest in this area. Six surveys provide substantial coverage of differential privacy, though none match the depth we provide here. Nine surveys have been peer-reviewed in journals or conferences, while six remain as arXiv preprints.
 
 ---
 

@@ -239,3 +239,34 @@ These map the structure of the AI safety field and identify where effort is conc
 2. **CAIS "Overview of Catastrophic AI Risks"** — four-category risk taxonomy
 3. **"Concrete Problems in AI Safety"** — foundational five-problem taxonomy
 4. **GovAI Research Agenda** — governance-specific taxonomy
+
+---
+
+## Notes: Coverage of Full Taxonomy (Layers 0–3, 27 Subareas)
+
+### Could any single resource give a full view across all subareas?
+
+**No single resource covers all 27 subareas.** The closest candidates:
+
+1. **Larks' Annual Review (3.1)** — Covers the most subareas but is heavily skewed toward **Layer 2** (technical alignment, interpretability, scalable oversight, evals, control). It catalogues actual research output by group, so it's great for seeing relative effort. But it has minimal coverage of Layer 0 (strategic/meta), Layer 1 (governance, compute governance, international treaties), and Layer 3 (biosecurity, cybersecurity, economic resilience, democratic resilience). It's an alignment review, not a safety-writ-large review.
+
+2. **MIT AI Risk Repository (2.7)** — Has the breadth (1,700+ risks across 7 domains) and measures publication density, which is the closest conceptual analogue to the OpenAlex approach. But its taxonomy is organized differently (by risk domain, not by defence layer), so you'd need to manually map their categories onto the 27 subareas. It also skews toward harms/risks rather than defensive interventions — e.g., it would capture "AI disinformation" as a risk but not necessarily "content provenance / C2PA" as a defence.
+
+3. **80,000 Hours (2.4/3.10)** — Covers both technical and governance subareas with explicit neglectedness assessments, but at a coarser granularity than the taxonomy. It wouldn't distinguish e.g. mechanistic interpretability from scalable oversight.
+
+### Could any replicate the OpenAlex keyword-count approach?
+
+**The MIT AI Risk Repository** is the most analogous — it's essentially a structured literature count by risk category. But it measures risk attention, not defence/intervention attention, and uses a different taxonomy.
+
+**No resource listed here actually does what the OpenAlex script does** — systematic keyword-based publication counts mapped to the specific 27-subarea taxonomy. The OpenAlex approach is unique in that it:
+- Covers all layers equally (governance, technical, societal)
+- Uses the specific taxonomy categories
+- Gives quantitative counts rather than qualitative assessments
+- Is reproducible and updatable
+
+The resources that come closest to complementing it would be:
+- **Larks' review** for ground-truth validation of Layer 2 counts (does the keyword search find the same papers Larks manually catalogued?)
+- **MIT AI Risk Repository** for a differently-sliced but also quantitative view
+- **LTFF + Open Philanthropy** for the funding dimension (which is a different signal than publication counts — some subareas may be well-funded but under-published, or vice versa)
+
+In short, the OpenAlex approach fills a genuine gap — none of these resources provide a uniform quantitative comparison across all 27 subareas.
